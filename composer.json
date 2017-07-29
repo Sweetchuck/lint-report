@@ -1,5 +1,5 @@
 {
-    "name": "cheppers/lint-report",
+    "name": "sweetchuck/lint-report",
     "description": "Generate reports from lint results",
     "license": "GPL-2.0+",
     "config": {
@@ -9,19 +9,26 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "php": ">=7.1",
         "league/container": "^2.2",
         "symfony/console": "^2.8 || ^3.1",
         "symfony/filesystem": "^2.8 || ^3.1",
         "symfony/yaml": "^2.8 || ^3.1"
     },
     "require-dev": {
-        "cheppers/git-hooks": "^0.0.8",
+        "sweetchuck/git-hooks": "^0.0.10",
         "codeception/codeception": "^2.2",
         "squizlabs/php_codesniffer": "2.6.2"
     },
     "autoload": {
         "psr-4": {
-            "Cheppers\\LintReport\\": "src/"
+            "Sweetchuck\\LintReport\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sweetchuck\\LintReport\\Test\\Helper\\": "tests/_support/Helper/",
+            "Sweetchuck\\LintReport\\Tests\\Unit\\": "tests/unit/"
         }
     },
     "scripts": {
@@ -40,8 +47,8 @@
         "test": [
             "@test-codeception"
         ],
-        "test-codeception": "codecept --verbose --coverage --coverage-xml=coverage.xml --coverage-html=html run",
-        "deploy-git-hooks": "\\Cheppers\\GitHooks\\Main::deploy",
+        "test-codeception": "phpdbg -qrr bin/codecept --verbose --coverage --coverage-xml=coverage.xml --coverage-html=html run",
+        "deploy-git-hooks": "\\Sweetchuck\\GitHooks\\Composer\\Scripts::deploy",
         "githook-pre-commit": [
             "@lint",
             "@test"

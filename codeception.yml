@@ -1,4 +1,6 @@
 
+namespace: Sweetchuck\LintReport\Test
+
 actor: Tester
 
 paths:

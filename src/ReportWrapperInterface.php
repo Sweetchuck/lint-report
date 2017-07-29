@@ -1,12 +1,7 @@
 <?php
 
-namespace Cheppers\LintReport;
+namespace Sweetchuck\LintReport;
 
-/**
- * Interface FilesWrapperInterface.
- *
- * @package Cheppers\LintReport
- */
 interface ReportWrapperInterface
 {
     /**
@@ -24,47 +19,25 @@ interface ReportWrapperInterface
      */
     const SEVERITY_OK = 'ok';
 
-    /**
-     * ReportWrapper constructor.
-     *
-     * @param array|null $report
-     */
-    public function __construct(array $report = null);
+    public function __construct(?array $report = null);
+
+    public function getReport(): array;
 
     /**
-     * @return array
-     */
-    public function getReport();
-
-    /**
-     * @param array $report
-     *
      * @return $this
      */
-    public function setReport($report);
+    public function setReport(array $report);
+
+    public function numOfErrors(): int;
+
+    public function numOfWarnings(): int;
+
+    public function highestSeverity(): string;
+
+    public function countFiles(): int;
 
     /**
-     * @return int
-     */
-    public function numOfErrors();
-
-    /**
-     * @return int
-     */
-    public function numOfWarnings();
-
-    /**
-     * @return string
-     */
-    public function highestSeverity();
-
-    /**
-     * @return int
-     */
-    public function countFiles();
-
-    /**
-     * @return FileWrapperInterface[]
+     * @return \Sweetchuck\LintReport\FileWrapperInterface[]
      */
     public function yieldFiles();
 }

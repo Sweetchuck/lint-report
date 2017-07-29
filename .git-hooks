@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 
-echo "BEGIN Git hook: ${cghHookName}"
+echo "BEGIN Git hook: ${sghHookName}"
 
 function myExit ()
 {
-    echo "End Git hook: ${cghHookName}"
+    echo "END   Git hook: ${sghHookName}"
 
     exit $1
 }
 
 export COMPOSER_DISABLE_XDEBUG_WARN=1
 
-test -s "${cghBridge}.local" && . "${cghBridge}.local"
+test -s "${sghBridge}.local" && . "${sghBridge}.local"
 
-composer run -l | grep "^  githook-${cghHookName}\$" 1> /dev/null 2>&1 || myExit 0
+composer run -l | grep "^  githook-${sghHookName}\$" 1> /dev/null 2>&1 || myExit 0
 
-if [ "$cghHasInput" = 'true' ]; then
-    composer "githook-${cghHookName}" $@ <<< $(</dev/stdin) || myExit $?
+if [ "$sghHasInput" = 'true' ]; then
+    composer "githook-${sghHookName}" $@ <<< $(</dev/stdin) || myExit $?
 else
-    composer "githook-${cghHookName}" $@ || myExit $?
+    composer "githook-${sghHookName}" $@ || myExit $?
 fi
 
 myExit 0

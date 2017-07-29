@@ -1,48 +1,23 @@
 <?php
 
-namespace Cheppers\LintReport;
+namespace Sweetchuck\LintReport;
 
-/**
- * Interface FileWrapperInterface.
- *
- * @package Cheppers\LintReport
- */
 interface FileWrapperInterface
 {
-    /**
-     * FileWrapper constructor.
-     *
-     * @param array $file
-     */
     public function __construct(array $file);
 
-    /**
-     * @return string
-     */
-    public function filePath();
+    public function filePath(): string;
+
+    public function numOfErrors(): int;
+
+    public function numOfWarnings(): int;
+
+    public function highestSeverity(): string;
 
     /**
-     * @return int
-     */
-    public function numOfErrors();
-
-    /**
-     * @return int
-     */
-    public function numOfWarnings();
-
-    /**
-     * @return string
-     */
-    public function highestSeverity();
-
-    /**
-     * @return FailureWrapperInterface[]
+     * @return \Sweetchuck\LintReport\FailureWrapperInterface[]
      */
     public function yieldFailures();
 
-    /**
-     * @return array
-     */
-    public function stats();
+    public function stats(): array;
 }

@@ -1,6 +1,7 @@
 <?php
 
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Yaml\Yaml;
 
@@ -38,7 +39,7 @@ class ReportTestBase extends \Codeception\Test\Unit
         $file = new \DirectoryIterator("$dataDir/source");
 
         $sourceType2WrapperClass = [
-            'eslint' => \Helper\Dummy\LintReportWrapper\ReportWrapper::class,
+            'eslint' => DummyReportWrapper::class,
         ];
 
         while ($file->valid()) {
@@ -98,7 +99,7 @@ class ReportTestBase extends \Codeception\Test\Unit
     ) {
         $destination = new BufferedOutput();
 
-        /** @var \Cheppers\LintReport\ReporterInterface $reporter */
+        /** @var \Sweetchuck\LintReport\ReporterInterface $reporter */
         $reporter = new $this->reporterClass();
         $reporter
             ->setReportWrapper($reportWrapper)

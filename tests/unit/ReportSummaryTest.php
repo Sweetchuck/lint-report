@@ -1,10 +1,7 @@
 <?php
 
-use Cheppers\LintReport\Reporter\SummaryReporter;
+use Sweetchuck\LintReport\Reporter\SummaryReporter;
 
-/**
- * Class TaskScssLintRunTest.
- */
 // @codingStandardsIgnoreStart
 class ReportSummaryTest extends ReportTestBase
 {

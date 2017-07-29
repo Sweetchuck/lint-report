@@ -1,14 +1,9 @@
 <?php
 
-namespace Cheppers\LintReport\Reporter;
+namespace Sweetchuck\LintReport\Reporter;
 
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 
-/**
- * Class CheckstyleReporter.
- *
- * @package Cheppers\LintReport\Reporter
- */
 class CheckstyleReporter extends BaseReporter
 {
     /**
