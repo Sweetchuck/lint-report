@@ -1,18 +1,13 @@
 <?php
 
-namespace Cheppers\LintReport\Reporter;
+namespace Sweetchuck\LintReport\Reporter;
 
-use Cheppers\LintReport\ReporterInterface;
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\ReporterInterface;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
-/**
- * Class BaseReporter.
- *
- * @package Cheppers\LintReport\Reporter
- */
 abstract class BaseReporter implements ReporterInterface
 {
 
@@ -78,17 +73,15 @@ abstract class BaseReporter implements ReporterInterface
     }
 
     /**
-     * @return ReportWrapperInterface
+     * {@inheritdoc}
      */
-    public function getReportWrapper()
+    public function getReportWrapper(): ReportWrapperInterface
     {
         return $this->reportWrapper;
     }
 
     /**
-     * @param ReportWrapperInterface $reportWrapper
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setReportWrapper(ReportWrapperInterface $reportWrapper)
     {
@@ -98,7 +91,7 @@ abstract class BaseReporter implements ReporterInterface
     }
 
     /**
-     * @return string|\Symfony\Component\Console\Output\OutputInterface
+     * {@inheritdoc}
      */
     public function getDestination()
     {
@@ -106,9 +99,7 @@ abstract class BaseReporter implements ReporterInterface
     }
 
     /**
-     * @param string|\Symfony\Component\Console\Output\OutputInterface $destination
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setDestination($destination)
     {
@@ -118,19 +109,17 @@ abstract class BaseReporter implements ReporterInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getDestinationMode()
+    public function getDestinationMode(): string
     {
         return $this->destinationMode;
     }
 
     /**
-     * @param string $destinationMode
-     *
-     * @return $this
+     * {@inheritdoc}
      */
-    public function setDestinationMode($destinationMode)
+    public function setDestinationMode(string $destinationMode)
     {
         $this->destinationMode = $destinationMode;
 
@@ -140,19 +129,15 @@ abstract class BaseReporter implements ReporterInterface
     /**
      * {@inheritdoc}
      */
-    public function getBasePath()
+    public function getBasePath(): string
     {
         return $this->basePath;
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @param string $basePath
-     *
-     * @return $this
      */
-    public function setBasePath($basePath)
+    public function setBasePath(string $basePath)
     {
         $this->basePath = $basePath;
 
@@ -160,21 +145,17 @@ abstract class BaseReporter implements ReporterInterface
     }
 
     /**
-     * @return string|null
+     * {@inheritdoc}
      */
-    public function getFilePathStyle()
+    public function getFilePathStyle(): ?string
     {
         return $this->filePathStyle;
     }
 
     /**
-     * Allowed values are: "relative", "absolute", null.
-     *
-     * @param string|null $value
-     *
-     * @return $this
+     * {@inheritdoc}
      */
-    public function setFilePathStyle($value)
+    public function setFilePathStyle(?string $value)
     {
         if (!in_array($value, ['relative', 'absolute', null])) {
             throw new \InvalidArgumentException();
@@ -198,9 +179,6 @@ abstract class BaseReporter implements ReporterInterface
 
     /**
      * Initialize the output destination based on the Jar values.
-     *
-     * @param string|OutputInterface $destination
-     * @param string $destination_mode
      *
      * @return $this
      */
@@ -246,12 +224,7 @@ abstract class BaseReporter implements ReporterInterface
      */
     abstract protected function doIt();
 
-    /**
-     * @param string $filePath
-     *
-     * @return string
-     */
-    protected function normalizeFilePath($filePath)
+    protected function normalizeFilePath(string $filePath): string
     {
         $file_path_style = $this->getFilePathStyle();
         if ($file_path_style === null) {
@@ -269,17 +242,13 @@ abstract class BaseReporter implements ReporterInterface
         return $filePath;
     }
 
-    /**
-     * @param string $file_path
-     *
-     * @return bool
-     */
-    protected function isAbsoluteFilePath($file_path)
+    protected function isAbsoluteFilePath(string $filePath): bool
     {
-        $is_win = DIRECTORY_SEPARATOR === '\\';
+        // @todo Use Webmozart.
+        $isWin = DIRECTORY_SEPARATOR === '\\';
 
 
-        return $is_win ? preg_match('@^[a-zA-z]:@', $file_path) : strpos($file_path, '/') === 0;
+        return $isWin ? preg_match('@^[a-zA-z]:@', $filePath) : strpos($filePath, '/') === 0;
     }
 
     /**
@@ -293,7 +262,7 @@ abstract class BaseReporter implements ReporterInterface
      * @return string
      *   Decorated text.
      */
-    protected function highlightHeaderBySeverity($severity, $text)
+    protected function highlightHeaderBySeverity(string $severity, string $text): string
     {
         $patterns = [
             'warning' => '<fg=yellow;options=bold>%s</fg=yellow;options=bold>',
@@ -316,7 +285,7 @@ abstract class BaseReporter implements ReporterInterface
      * @return string
      *   Decorated text.
      */
-    protected function highlightNormalBySeverity($severity, $text)
+    protected function highlightNormalBySeverity(string $severity, string $text): string
     {
         $patterns = [
             'warning' => '<fg=yellow>%s</fg=yellow>',

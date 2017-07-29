@@ -1,5 +1,8 @@
 <?php
 
+namespace Sweetchuck\LintReport\Test;
+
+use Sweetchuck\LintReport\Test\_generated\UnitTesterActions;
 
 /**
  * Inherited Methods
@@ -18,9 +21,5 @@
 */
 class UnitTester extends \Codeception\Actor
 {
-    use _generated\UnitTesterActions;
-
-   /**
-    * Define custom actions here
-    */
+    use UnitTesterActions;
 }

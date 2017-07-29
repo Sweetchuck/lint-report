@@ -1,12 +1,9 @@
 <?php
 
-namespace Helper\Dummy\LintReportWrapper;
+namespace Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper;
 
-use Cheppers\LintReport\FailureWrapperInterface;
+use Sweetchuck\LintReport\FailureWrapperInterface;
 
-/**
- * Class FileWrapper.
- */
 class FailureWrapper implements FailureWrapperInterface
 {
     /**
@@ -36,41 +33,38 @@ class FailureWrapper implements FailureWrapperInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function severity()
+    public function severity(): string
     {
         return ReportWrapper::severity($this->failure['severity']);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function source()
+    public function source(): string
     {
         return $this->failure['ruleId'];
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
-    public function line()
+    public function line(): int
     {
         return $this->failure['line'];
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
-    public function column()
+    public function column(): int
     {
         return $this->failure['column'];
     }
 
-    /**
-     * @return string
-     */
-    public function message()
+    public function message(): string
     {
         return $this->failure['message'];
     }

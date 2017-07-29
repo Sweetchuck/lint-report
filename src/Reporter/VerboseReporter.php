@@ -1,16 +1,11 @@
 <?php
 
-namespace Cheppers\LintReport\Reporter;
+namespace Sweetchuck\LintReport\Reporter;
 
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableStyle;
 
-/**
- * Class VerboseReporter.
- *
- * @package Cheppers\LintReport\Reporter
- */
 class VerboseReporter extends BaseReporter
 {
 
@@ -42,100 +37,75 @@ class VerboseReporter extends BaseReporter
         ],
     ];
 
-    /**
-     * @return bool
-     */
-    public function isSeverityVisible()
+    public function isSeverityVisible(): bool
     {
         return $this->columns['severity']['visible'];
     }
 
     /**
-     * @param bool $visible
-     *
      * @return $this
      */
-    public function showSeverity($visible)
+    public function showSeverity(bool $visible)
     {
         $this->columns['severity']['visible'] = $visible;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isSourceVisible()
+    public function isSourceVisible(): bool
     {
         return $this->columns['source']['visible'];
     }
 
     /**
-     * @param bool $visible
-     *
      * @return $this
      */
-    public function showSource($visible)
+    public function showSource(bool $visible)
     {
         $this->columns['source']['visible'] = $visible;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLineNumberVisible()
+    public function isLineNumberVisible(): bool
     {
-        $this->columns['line']['visible'];
+        return $this->columns['line']['visible'];
     }
 
     /**
-     * @param bool $visible
-     *
      * @return $this
      */
-    public function showLineNumber($visible)
+    public function showLineNumber(bool $visible)
     {
         $this->$this->columns['line']['visible'] = $visible;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isColumnNumberVisible()
+    public function isColumnNumberVisible(): bool
     {
         return $this->columns['column']['visible'];
     }
 
     /**
-     * @param bool $visible
-     *
      * @return $this
      */
-    public function showColumnNumber($visible)
+    public function showColumnNumber(bool $visible)
     {
         $this->columns['column']['visible'] = $visible;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isMessageVisible()
+    public function isMessageVisible(): bool
     {
         return $this->columns['message']['visible'];
     }
 
     /**
-     * @param bool $visible
-     *
      * @return $this
      */
-    public function showMessage($visible)
+    public function showMessage(bool $visible)
     {
         $this->columns['message']['visible'] = $visible;
 
@@ -222,7 +192,7 @@ class VerboseReporter extends BaseReporter
         return $this;
     }
 
-    protected function filterHiddenColumns()
+    protected function filterHiddenColumns(): array
     {
         $columns = [];
         foreach ($this->columns as $columnName => $column) {
@@ -235,11 +205,9 @@ class VerboseReporter extends BaseReporter
     }
 
     /**
-     * @param array $columns
-     *
      * @return string[]
      */
-    protected function getTableHeader($columns)
+    protected function getTableHeader(array $columns): array
     {
         $header = [];
         foreach ($columns as $column) {

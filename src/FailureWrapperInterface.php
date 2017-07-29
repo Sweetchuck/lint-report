@@ -1,43 +1,18 @@
 <?php
 
-namespace Cheppers\LintReport;
+namespace Sweetchuck\LintReport;
 
-/**
- * Interface FailureWrapperInterface.
- *
- * @package Cheppers\LintReport
- */
 interface FailureWrapperInterface
 {
-    /**
-     * FileWrapper constructor.
-     *
-     * @param array $failure
-     */
     public function __construct(array $failure);
 
-    /**
-     * @return string
-     */
-    public function severity();
+    public function severity(): string;
 
-    /**
-     * @return string
-     */
-    public function source();
+    public function source(): string;
 
-    /**
-     * @return int
-     */
-    public function line();
+    public function line(): int;
 
-    /**
-     * @return int
-     */
-    public function column();
+    public function column(): int;
 
-    /**
-     * @return string
-     */
-    public function message();
+    public function message(): string;
 }

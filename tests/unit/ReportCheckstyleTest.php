@@ -1,6 +1,6 @@
 <?php
 
-use Cheppers\LintReport\Reporter\CheckstyleReporter;
+use Sweetchuck\LintReport\Reporter\CheckstyleReporter;
 
 /**
  * Class TaskScssLintRunTest.
@@ -27,7 +27,7 @@ class ReportCheckstyleTest extends ReportTestBase
 
     public function testSetFilePathStyle()
     {
-        /** @var \Cheppers\LintReport\ReporterInterface $reporter */
+        /** @var \Sweetchuck\LintReport\ReporterInterface $reporter */
         $reporter = new $this->reporterClass();
         try {
             $reporter->setFilePathStyle('invalid');

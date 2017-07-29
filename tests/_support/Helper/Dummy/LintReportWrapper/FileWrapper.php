@@ -1,13 +1,11 @@
 <?php
 
-namespace Helper\Dummy\LintReportWrapper;
+namespace Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper;
 
-use Cheppers\LintReport\FileWrapperInterface;
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\FailureWrapperInterface;
+use Sweetchuck\LintReport\FileWrapperInterface;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 
-/**
- * Class FileWrapper.
- */
 class FileWrapper implements FileWrapperInterface
 {
     /**
@@ -36,7 +34,7 @@ class FileWrapper implements FileWrapperInterface
     /**
      * {@inheritdoc}
      */
-    public function filePath()
+    public function filePath(): string
     {
         return $this->item['filePath'];
     }
@@ -44,7 +42,7 @@ class FileWrapper implements FileWrapperInterface
     /**
      * {@inheritdoc}
      */
-    public function numOfErrors()
+    public function numOfErrors(): int
     {
         return $this->item['errorCount'];
     }
@@ -52,7 +50,7 @@ class FileWrapper implements FileWrapperInterface
     /**
      * {@inheritdoc}
      */
-    public function numOfWarnings()
+    public function numOfWarnings(): int
     {
         return $this->item['warningCount'];
     }
@@ -70,7 +68,7 @@ class FileWrapper implements FileWrapperInterface
     /**
      * {@inheritdoc}
      */
-    public function stats()
+    public function stats(): array
     {
         if (!$this->stats) {
             $this->stats = [
@@ -101,11 +99,10 @@ class FileWrapper implements FileWrapperInterface
         return $this->stats;
     }
 
-
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function highestSeverity()
+    public function highestSeverity(): string
     {
         if ($this->numOfErrors()) {
             return ReportWrapperInterface::SEVERITY_ERROR;

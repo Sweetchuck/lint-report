@@ -1,16 +1,11 @@
 <?php
 
-namespace Cheppers\LintReport\Reporter;
+namespace Sweetchuck\LintReport\Reporter;
 
-use Cheppers\LintReport\ReportWrapperInterface;
+use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableStyle;
 
-/**
- * Class SummaryReporter.
- *
- * @package Cheppers\LintReport\Reporter
- */
 class SummaryReporter extends BaseReporter
 {
     /**
