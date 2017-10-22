@@ -77,7 +77,7 @@ class VerboseReporter extends BaseReporter
      */
     public function showLineNumber(bool $visible)
     {
-        $this->$this->columns['line']['visible'] = $visible;
+        $this->columns['line']['visible'] = $visible;
 
         return $this;
     }
