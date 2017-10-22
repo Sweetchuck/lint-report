@@ -42,7 +42,7 @@
             "@lint-phpcs-psr2",
             "@lint-composer-lock"
         ],
-        "lint-phpcs-psr2": "phpcs --colors --standard=PSR2 --ignore='tests/_output/,tests/_support/UnitTester.php' src/ tests/",
+        "lint-phpcs-psr2": "phpcs --colors",
         "lint-composer-lock": "composer validate",
         "test": [
             "@test-codeception"

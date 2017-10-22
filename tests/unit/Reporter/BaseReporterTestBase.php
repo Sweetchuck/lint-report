@@ -1,17 +1,15 @@
 <?php
 
+namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
+
+use Codeception\Test\Unit;
 use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
 use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Yaml\Yaml;
 
-/**
- * Class ReportTestBase.
- */
-// @codingStandardsIgnoreStart
-class ReportTestBase extends \Codeception\Test\Unit
+class BaseReporterTestBase extends Unit
 {
-    // @codingStandardsIgnoreEnd
 
     /**
      * @var string
@@ -29,9 +27,11 @@ class ReportTestBase extends \Codeception\Test\Unit
     protected $reporterOutputExtension = '';
 
     /**
-     * @return array
+     * @var string
      */
-    public function casesGenerate()
+    protected $expectedEmptyOutput = '';
+
+    public function casesGenerate(): array
     {
         $cases = [];
 
@@ -87,15 +87,11 @@ class ReportTestBase extends \Codeception\Test\Unit
 
     /**
      * @dataProvider casesGenerate
-     *
-     * @param ReportWrapperInterface $reportWrapper
-     * @param string|null $filePathStyle
-     * @param string $expected
      */
     public function testGenerate(
         ReportWrapperInterface $reportWrapper,
-        $filePathStyle,
-        $expected
+        ?string $filePathStyle,
+        string $expected
     ) {
         $destination = new BufferedOutput();
 
@@ -111,12 +107,34 @@ class ReportTestBase extends \Codeception\Test\Unit
         static::assertEquals($expected, $destination->fetch());
     }
 
-    /**
-     * @param string $fileName
-     *
-     * @return array
-     */
-    protected function yamlParse($fileName)
+    public function testGenerateEmpty()
+    {
+        $report = [
+            [
+                'filePath' => '/a.js',
+                'errorCount' => 0,
+                'warningCount' => 0,
+                'messages' => [],
+            ],
+        ];
+        $destination = new BufferedOutput();
+
+        /** @var \Sweetchuck\LintReport\ReporterInterface $reporter */
+        $reporter = new $this->reporterClass();
+        $reporter
+            ->setReportWrapper($this->createDummyReportWrapper($report))
+            ->setDestination($destination)
+            ->generate();
+
+        static::assertEquals($this->expectedEmptyOutput, $destination->fetch());
+    }
+
+    protected function createDummyReportWrapper(array $report): ReportWrapperInterface
+    {
+        return new DummyReportWrapper($report);
+    }
+
+    protected function yamlParse(string $fileName): array
     {
         if (function_exists('yaml_parse_file')) {
             return yaml_parse_file($fileName, -1);
@@ -125,12 +143,7 @@ class ReportTestBase extends \Codeception\Test\Unit
         return $this->yamlParseSymfonyMultiDocument($fileName);
     }
 
-    /**
-     * @param string $fileName
-     *
-     * @return array
-     */
-    protected function yamlParseSymfonyMultiDocument($fileName)
+    protected function yamlParseSymfonyMultiDocument(string $fileName): array
     {
         $documents = preg_split(
             '@(^|\n)---\n(?=failures:\n)@',

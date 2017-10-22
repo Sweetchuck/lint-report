@@ -1,12 +1,11 @@
 <?php
 
+namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
+
 use Sweetchuck\LintReport\Reporter\SummaryReporter;
 
-// @codingStandardsIgnoreStart
-class ReportSummaryTest extends ReportTestBase
+class SummaryReporterTest extends BaseReporterTestBase
 {
-    // @codingStandardsIgnoreEnd
-
     /**
      * {@inheritdoc}
      */
