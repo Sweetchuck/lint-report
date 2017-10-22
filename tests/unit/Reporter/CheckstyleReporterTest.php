@@ -1,14 +1,11 @@
 <?php
 
+namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
+
 use Sweetchuck\LintReport\Reporter\CheckstyleReporter;
 
-/**
- * Class TaskScssLintRunTest.
- */
-// @codingStandardsIgnoreStart
-class ReportCheckstyleTest extends ReportTestBase
+class CheckstyleReporterTest extends BaseReporterTestBase
 {
-    // @codingStandardsIgnoreEnd
 
     /**
      * {@inheritdoc}
@@ -24,6 +21,8 @@ class ReportCheckstyleTest extends ReportTestBase
      * {@inheritdoc}
      */
     protected $reporterOutputExtension = 'xml';
+
+    protected $expectedEmptyOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<checkstyle version=\"2.6.1\"/>\n";
 
     public function testSetFilePathStyle()
     {

@@ -113,6 +113,54 @@ class VerboseReporter extends BaseReporter
     }
 
     /**
+     * @return $this
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $key => $value) {
+            switch ($key) {
+                case 'reportWrapper':
+                    $this->setReportWrapper($value);
+                    break;
+
+                case 'destination':
+                    $this->setDestination($value);
+                    break;
+
+                case 'destinationMode':
+                    $this->setDestinationMode($value);
+                    break;
+
+                case 'filePathStyle':
+                    $this->setFilePathStyle($value);
+                    break;
+
+                case 'showSeverity':
+                    $this->showSeverity($value);
+                    break;
+
+                case 'showSource':
+                    $this->showSource($value);
+                    break;
+
+                case 'showLineNumber':
+                    $this->showLineNumber($value);
+                    break;
+
+                case 'showColumnNumber':
+                    $this->showColumnNumber($value);
+                    break;
+
+                case 'showMessage':
+                    $this->showMessage($value);
+                    break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function doIt()
