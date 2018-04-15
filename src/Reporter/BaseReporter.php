@@ -7,22 +7,39 @@ use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Filesystem\Filesystem;
+use Webmozart\PathUtil\Path;
 
 abstract class BaseReporter implements ReporterInterface
 {
+
+    /**
+     * @var array
+     */
+    public static $services = [
+        'lintCheckstyleReporter' => CheckstyleReporter::class,
+        'lintSummaryReporter' => SummaryReporter::class,
+        'lintVerboseReporter' => VerboseReporter::class,
+    ];
+
+    public static function getServices(): array
+    {
+        return static::$services;
+    }
 
     /**
      * @param \League\Container\ContainerInterface $container
      */
     public static function lintReportConfigureContainer($container)
     {
-        $container->share('lintCheckstyleReporter', CheckstyleReporter::class);
-        $container->share('lintSummaryReporter', SummaryReporter::class);
-        $container->share('lintVerboseReporter', VerboseReporter::class);
+        foreach (static::getServices() as $serviceName => $serviceClass) {
+            if (!$container->has($serviceName)) {
+                $container->share($serviceName, $serviceClass);
+            }
+        }
     }
 
     /**
-     * @var ReportWrapperInterface
+     * @var \Sweetchuck\LintReport\ReportWrapperInterface
      */
     protected $reportWrapper = null;
 
@@ -70,6 +87,30 @@ abstract class BaseReporter implements ReporterInterface
     public function __construct()
     {
         $this->setBasePath(getcwd());
+    }
+
+    /**
+     * @return $this
+     */
+    public function setOptions(array $options)
+    {
+        if (array_key_exists('reportWrapper', $options)) {
+            $this->setReportWrapper($options['reportWrapper']);
+        }
+
+        if (array_key_exists('destination', $options)) {
+            $this->setDestination($options['destination']);
+        }
+
+        if (array_key_exists('destinationMode', $options)) {
+            $this->setDestinationMode($options['destinationMode']);
+        }
+
+        if (array_key_exists('filePathStyle', $options)) {
+            $this->setFilePathStyle($options['filePathStyle']);
+        }
+
+        return $this;
     }
 
     /**
@@ -226,29 +267,24 @@ abstract class BaseReporter implements ReporterInterface
 
     protected function normalizeFilePath(string $filePath): string
     {
-        $file_path_style = $this->getFilePathStyle();
-        if ($file_path_style === null) {
+        $filePathStyle = $this->getFilePathStyle();
+        if ($filePathStyle === null) {
             return $filePath;
         }
 
-        $ds = DIRECTORY_SEPARATOR;
-        $isAbsolute = $this->isAbsoluteFilePath($filePath);
-        if ($isAbsolute && $file_path_style === 'relative') {
-            return preg_replace('@^' . preg_quote($this->getBasePath() . $ds, '@') . '@', '', $filePath);
-        } elseif (!$isAbsolute && $file_path_style === 'absolute') {
-            return $this->getBasePath() . $ds . $filePath;
+        $basePath = $this->getBasePath();
+        $isAbsolute = Path::isAbsolute($filePath);
+        if ($basePath) {
+            if ($isAbsolute && $filePathStyle === 'relative') {
+                return Path::makeRelative($filePath, $basePath);
+            }
+
+            if (!$isAbsolute && $filePathStyle === 'absolute') {
+                return Path::join($basePath, $filePath);
+            }
         }
 
         return $filePath;
-    }
-
-    protected function isAbsoluteFilePath(string $filePath): bool
-    {
-        // @todo Use Webmozart.
-        $isWin = DIRECTORY_SEPARATOR === '\\';
-
-
-        return $isWin ? preg_match('@^[a-zA-z]:@', $filePath) : strpos($filePath, '/') === 0;
     }
 
     /**

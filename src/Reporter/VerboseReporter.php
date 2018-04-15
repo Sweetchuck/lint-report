@@ -9,6 +9,9 @@ use Symfony\Component\Console\Helper\TableStyle;
 class VerboseReporter extends BaseReporter
 {
 
+    /**
+     * @var array
+     */
     protected $columns = [
         'severity' => [
             'header' => 'Severity',
@@ -113,48 +116,30 @@ class VerboseReporter extends BaseReporter
     }
 
     /**
-     * @return $this
+     * {@inheritdoc}
      */
     public function setOptions(array $options)
     {
-        foreach ($options as $key => $value) {
-            switch ($key) {
-                case 'reportWrapper':
-                    $this->setReportWrapper($value);
-                    break;
+        parent::setOptions($options);
 
-                case 'destination':
-                    $this->setDestination($value);
-                    break;
+        if (array_key_exists('showSeverity', $options)) {
+            $this->showSeverity($options['showSeverity']);
+        }
 
-                case 'destinationMode':
-                    $this->setDestinationMode($value);
-                    break;
+        if (array_key_exists('showSource', $options)) {
+            $this->showSource($options['showSource']);
+        }
 
-                case 'filePathStyle':
-                    $this->setFilePathStyle($value);
-                    break;
+        if (array_key_exists('showLineNumber', $options)) {
+            $this->showLineNumber($options['showLineNumber']);
+        }
 
-                case 'showSeverity':
-                    $this->showSeverity($value);
-                    break;
+        if (array_key_exists('showColumnNumber', $options)) {
+            $this->showColumnNumber($options['showColumnNumber']);
+        }
 
-                case 'showSource':
-                    $this->showSource($value);
-                    break;
-
-                case 'showLineNumber':
-                    $this->showLineNumber($value);
-                    break;
-
-                case 'showColumnNumber':
-                    $this->showColumnNumber($value);
-                    break;
-
-                case 'showMessage':
-                    $this->showMessage($value);
-                    break;
-            }
+        if (array_key_exists('showMessage', $options)) {
+            $this->showMessage($options['showMessage']);
         }
 
         return $this;
