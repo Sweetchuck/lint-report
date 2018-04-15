@@ -4,6 +4,11 @@ namespace Sweetchuck\LintReport;
 
 interface ReporterInterface
 {
+    /**
+     * @return $this
+     */
+    public function setOptions(array $options);
+
     public function getReportWrapper(): ReportWrapperInterface;
 
     /**
