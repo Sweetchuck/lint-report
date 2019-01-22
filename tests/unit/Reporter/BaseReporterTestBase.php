@@ -3,6 +3,7 @@
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
 use Codeception\Test\Unit;
+use org\bovigo\vfs\vfsStream;
 use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
 use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -22,6 +23,11 @@ class BaseReporterTestBase extends Unit
     protected $reporterClass = '';
 
     /**
+     * @var \Sweetchuck\LintReport\ReporterInterface
+     */
+    protected $reporter;
+
+    /**
      * @var string
      */
     protected $reporterOutputExtension = '';
@@ -30,6 +36,13 @@ class BaseReporterTestBase extends Unit
      * @var string
      */
     protected $expectedEmptyOutput = '';
+
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->reporter = new $this->reporterClass();
+    }
 
     public function casesGenerate(): array
     {
@@ -88,16 +101,14 @@ class BaseReporterTestBase extends Unit
     /**
      * @dataProvider casesGenerate
      */
-    public function testGenerate(
+    public function testGenerateOutputDestination(
         ReportWrapperInterface $reportWrapper,
         ?string $filePathStyle,
         string $expected
     ) {
         $destination = new BufferedOutput();
 
-        /** @var \Sweetchuck\LintReport\ReporterInterface $reporter */
-        $reporter = new $this->reporterClass();
-        $reporter
+        $this->reporter
             ->setReportWrapper($reportWrapper)
             ->setDestination($destination)
             ->setBasePath('/foo')
@@ -105,6 +116,38 @@ class BaseReporterTestBase extends Unit
             ->generate();
 
         static::assertEquals($expected, $destination->fetch());
+    }
+
+    /**
+     * @dataProvider casesGenerate
+     */
+    public function testGenerateFileDestination(
+        ReportWrapperInterface $reportWrapper,
+        ?string $filePathStyle,
+        string $expected
+    ) {
+        $srcDir = __FUNCTION__;
+        $vfs = vfsStream::setup(
+            'root',
+            0777,
+            [
+                $srcDir => [],
+            ]
+        );
+
+        $destination = $vfs->url() . "/$srcDir/" . $this->dataName() . '.txt';
+
+        $this->reporter
+            ->setOptions([
+                'reportWrapper' => $reportWrapper,
+                'destination' => $destination,
+                'destinationMode' => 'w',
+                'basePath' => '/foo',
+                'filePathStyle' => $filePathStyle,
+            ])
+            ->generate();
+
+        static::assertEquals($expected, file_get_contents($destination));
     }
 
     public function testGenerateEmpty()
@@ -119,9 +162,7 @@ class BaseReporterTestBase extends Unit
         ];
         $destination = new BufferedOutput();
 
-        /** @var \Sweetchuck\LintReport\ReporterInterface $reporter */
-        $reporter = new $this->reporterClass();
-        $reporter
+        $this->reporter
             ->setReportWrapper($this->createDummyReportWrapper($report))
             ->setDestination($destination)
             ->generate();

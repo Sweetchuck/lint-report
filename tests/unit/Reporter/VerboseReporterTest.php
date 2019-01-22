@@ -20,6 +20,11 @@ class VerboseReporterTest extends BaseReporterTestBase
     protected $reporterClass = VerboseReporter::class;
 
     /**
+     * @var \Sweetchuck\LintReport\Reporter\VerboseReporter
+     */
+    protected $reporter;
+
+    /**
      * {@inheritdoc}
      */
     protected $reporterOutputExtension = 'txt';
@@ -139,9 +144,7 @@ TEXT;
     ) {
         $destination = new BufferedOutput();
 
-        /** @var \Sweetchuck\LintReport\Reporter\VerboseReporter $reporter */
-        $reporter = new $this->reporterClass();
-        $reporter
+        $this->reporter
             ->setReportWrapper($reportWrapper)
             ->setDestination($destination)
             ->setOptions($options)
@@ -152,24 +155,21 @@ TEXT;
 
     public function testGetSet()
     {
-        /** @var \Sweetchuck\LintReport\Reporter\VerboseReporter $reporter */
-        $reporter = new $this->reporterClass();
-
         foreach ([true, false] as $value) {
-            $reporter->showMessage($value);
-            static::assertEquals($value, $reporter->isMessageVisible());
+            $this->reporter->showMessage($value);
+            static::assertEquals($value, $this->reporter->isMessageVisible());
 
-            $reporter->showSeverity($value);
-            static::assertEquals($value, $reporter->isSeverityVisible());
+            $this->reporter->showSeverity($value);
+            static::assertEquals($value, $this->reporter->isSeverityVisible());
 
-            $reporter->showLineNumber($value);
-            static::assertEquals($value, $reporter->isLineNumberVisible());
+            $this->reporter->showLineNumber($value);
+            static::assertEquals($value, $this->reporter->isLineNumberVisible());
 
-            $reporter->showColumnNumber($value);
-            static::assertEquals($value, $reporter->isColumnNumberVisible());
+            $this->reporter->showColumnNumber($value);
+            static::assertEquals($value, $this->reporter->isColumnNumberVisible());
 
-            $reporter->showSource($value);
-            static::assertEquals($value, $reporter->isSourceVisible());
+            $this->reporter->showSource($value);
+            static::assertEquals($value, $this->reporter->isSourceVisible());
         }
     }
 }
