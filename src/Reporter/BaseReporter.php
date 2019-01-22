@@ -17,6 +17,7 @@ abstract class BaseReporter implements ReporterInterface
      */
     public static $services = [
         'lintCheckstyleReporter' => CheckstyleReporter::class,
+        'lintGitLabCodeQualityReporter' => GitLabCodeQualityReporter::class,
         'lintSummaryReporter' => SummaryReporter::class,
         'lintVerboseReporter' => VerboseReporter::class,
     ];
@@ -104,6 +105,10 @@ abstract class BaseReporter implements ReporterInterface
 
         if (array_key_exists('destinationMode', $options)) {
             $this->setDestinationMode($options['destinationMode']);
+        }
+
+        if (array_key_exists('basePath', $options)) {
+            $this->setBasePath($options['basePath']);
         }
 
         if (array_key_exists('filePathStyle', $options)) {
@@ -226,20 +231,21 @@ abstract class BaseReporter implements ReporterInterface
     protected function initDestination()
     {
         $destination = $this->getDestination();
-        $destinationMode = $this->getDestinationMode();
-        if (is_string($destination)) {
-            $fs = new Filesystem();
-            $fs->mkdir(dirname($destination));
-
-            $this->destinationResource = fopen($destination, $destinationMode);
-            $this->destinationOutput = new StreamOutput(
-                $this->destinationResource,
-                OutputInterface::VERBOSITY_NORMAL,
-                false
-            );
-        } else {
+        if (!is_string($destination)) {
             $this->destinationOutput = $destination;
+
+            return $this;
         }
+
+        $fs = new Filesystem();
+        $fs->mkdir(dirname($destination));
+
+        $this->destinationResource = fopen($destination, $this->getDestinationMode());
+        $this->destinationOutput = new StreamOutput(
+            $this->destinationResource,
+            OutputInterface::VERBOSITY_NORMAL,
+            false
+        );
 
         return $this;
     }

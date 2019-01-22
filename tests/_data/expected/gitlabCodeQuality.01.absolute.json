@@ -1,0 +1,93 @@
+[
+    {
+        "description": "message-01",
+        "fingerprint": "source-01",
+        "location": {
+            "path": "/foo/file-01.php",
+            "positions": {
+                "begin": {
+                    "line": 1,
+                    "column": 2
+                }
+            }
+        }
+    },
+    {
+        "description": "message-02",
+        "fingerprint": "source-02",
+        "location": {
+            "path": "/foo/file-01.php",
+            "positions": {
+                "begin": {
+                    "line": 3,
+                    "column": 4
+                }
+            }
+        }
+    },
+    {
+        "description": "message-03",
+        "fingerprint": "source-03",
+        "location": {
+            "path": "/foo/file-02.php",
+            "positions": {
+                "begin": {
+                    "line": 5,
+                    "column": 6
+                }
+            }
+        }
+    },
+    {
+        "description": "message-04",
+        "fingerprint": "source-04",
+        "location": {
+            "path": "/foo/file-02.php",
+            "positions": {
+                "begin": {
+                    "line": 7,
+                    "column": 8
+                }
+            }
+        }
+    },
+    {
+        "description": "message-05",
+        "fingerprint": "source-05",
+        "location": {
+            "path": "/foo/file-02.php",
+            "positions": {
+                "begin": {
+                    "line": 9,
+                    "column": 10
+                }
+            }
+        }
+    },
+    {
+        "description": "message-06",
+        "fingerprint": "source-06",
+        "location": {
+            "path": "/foo/file-03.php",
+            "positions": {
+                "begin": {
+                    "line": 11,
+                    "column": 12
+                }
+            }
+        }
+    },
+    {
+        "description": "message-07",
+        "fingerprint": "source-07",
+        "location": {
+            "path": "/foo/file-03.php",
+            "positions": {
+                "begin": {
+                    "line": 13,
+                    "column": 14
+                }
+            }
+        }
+    }
+]

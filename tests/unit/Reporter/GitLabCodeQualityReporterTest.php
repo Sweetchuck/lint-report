@@ -2,27 +2,27 @@
 
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
-use Sweetchuck\LintReport\Reporter\CheckstyleReporter;
+use Sweetchuck\LintReport\Reporter\GitLabCodeQualityReporter;
 
-class CheckstyleReporterTest extends BaseReporterTestBase
+class GitLabCodeQualityReporterTest extends BaseReporterTestBase
 {
 
     /**
      * {@inheritdoc}
      */
-    protected $reporterName = 'checkstyle';
+    protected $reporterName = 'gitlabCodeQuality';
 
     /**
      * {@inheritdoc}
      */
-    protected $reporterClass = CheckstyleReporter::class;
+    protected $reporterClass = GitLabCodeQualityReporter::class;
 
     /**
      * {@inheritdoc}
      */
-    protected $reporterOutputExtension = 'xml';
+    protected $reporterOutputExtension = 'json';
 
-    protected $expectedEmptyOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<checkstyle version=\"2.6.1\"/>\n";
+    protected $expectedEmptyOutput = "[]\n";
 
     public function testSetFilePathStyle()
     {
