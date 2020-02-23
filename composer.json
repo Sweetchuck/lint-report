@@ -2,6 +2,21 @@
     "name": "sweetchuck/lint-report",
     "description": "Generate reports from lint results",
     "license": "GPL-3.0-or-later",
+    "keywords": [
+        "lint"
+    ],
+    "authors": [
+        {
+            "name": "Dávid Andor",
+            "role": "Maintainer",
+            "homepage": "https://github.com/Sweetchuck"
+        }
+    ],
+    "homepage": "https://github.com/Sweetchuck/lint-report",
+    "support": {
+        "source": "https://github.com/Sweetchuck/lint-report",
+        "issues": "https://github.com/Sweetchuck/lint-report/issues"
+    },
     "config": {
         "bin-dir": "bin",
         "preferred-install": "dist",
@@ -11,7 +26,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ext-dom": "*",
         "ext-json": "*",
         "league/container": "^2.2",
@@ -21,10 +36,15 @@
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "codeception/codeception": "^2.2",
-        "mikey179/vfsStream": "^1.6",
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.1",
+        "codeception/module-filesystem": "^1.0",
+        "mikey179/vfsstream": "^1.6",
         "squizlabs/php_codesniffer": "^3.4",
-        "sweetchuck/git-hooks": "^0.0"
+        "stecman/symfony-console-completion": "^0.11.0",
+        "sweetchuck/codeception-module-robo-task-runner": "^0.7",
+        "sweetchuck/git-hooks": "^0.0",
+        "sweetchuck/robo-git": "^0.2.0"
     },
     "autoload": {
         "psr-4": {
@@ -39,25 +59,11 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "@deploy-git-hooks"
+            "@git-hooks:deploy"
         ],
         "post-update-cmd": [
-            "@deploy-git-hooks"
+            "@git-hooks:deploy"
         ],
-        "lint": [
-            "@lint-phpcs-psr2",
-            "@lint-composer-lock"
-        ],
-        "lint-phpcs-psr2": "phpcs --colors",
-        "lint-composer-lock": "composer validate",
-        "test": [
-            "@test-codeception"
-        ],
-        "test-codeception": "phpdbg -qrr bin/codecept --verbose --coverage --coverage-xml=coverage.xml --coverage-html=html run",
-        "deploy-git-hooks": "\\Sweetchuck\\GitHooks\\Composer\\Scripts::deploy",
-        "githook-pre-commit": [
-            "@lint",
-            "@test"
-        ]
+        "git-hooks:deploy": "\\Sweetchuck\\GitHooks\\Composer\\Scripts::deploy"
     }
 }

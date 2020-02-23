@@ -11,14 +11,19 @@ function myExit ()
 
 export COMPOSER_DISABLE_XDEBUG_WARN=1
 
+# @todo Better detection for executables: php, composer.phar.
+sghRobo="$(composer config 'bin-dir')/robo"
+
 test -s "${sghBridge}.local" && . "${sghBridge}.local"
 
-composer run -l | grep "^  githook-${sghHookName}\$" 1> /dev/null 2>&1 || myExit 0
+# Exit without error if "robo" doesn't exists or it has no corresponding task.
+test -x "$sghRobo" || myExit 0
+"${sghRobo}" help "githook:${sghHookName}" 1> /dev/null 2>&1 || myExit 0
 
 if [ "$sghHasInput" = 'true' ]; then
-    composer "githook-${sghHookName}" $@ <<< $(</dev/stdin) || myExit $?
+    "$sghRobo" "githook:${sghHookName}" $@ <<< $(</dev/stdin) || myExit $?
 else
-    composer "githook-${sghHookName}" $@ || myExit $?
+    "$sghRobo" "githook:${sghHookName}" $@ || myExit $?
 fi
 
 myExit 0
