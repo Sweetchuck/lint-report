@@ -355,17 +355,24 @@ class RoboFile extends Tasks implements LoggerAwareInterface
 
         $command = vsprintf($cmdPattern, $cmdArgs);
 
+        $command = [
+            'bash',
+            '-c',
+            $command,
+        ];
+
         return $cb
             ->addCode(function () use ($command) {
                 $this->output()->writeln(strtr(
                     '<question>[{name}]</question> runs <info>{command}</info>',
                     [
                         '{name}' => 'Codeception',
-                        '{command}' => $command,
+                        '{command}' => implode(' ', $command),
                     ]
                 ));
                 $process = new Process($command, null, null, null, null);
-                $exitCode = $process->run(function ($type, $data) {
+
+                return $process->run(function ($type, $data) {
                     switch ($type) {
                         case Process::OUT:
                             $this->output()->write($data);
@@ -376,8 +383,6 @@ class RoboFile extends Tasks implements LoggerAwareInterface
                             break;
                     }
                 });
-
-                return $exitCode;
             });
     }
 
@@ -453,7 +458,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface
         $process = Process::fromShellCommandline($command);
         $exitCode = $process->run();
         if ($exitCode !== 0) {
-            throw new \RuntimeException('@todo');
+            throw new RuntimeException('@todo');
         }
 
         return in_array($extension, explode("\n", $process->getOutput()));
@@ -488,10 +493,15 @@ class RoboFile extends Tasks implements LoggerAwareInterface
                 ->in($this->codeceptionInfo['paths']['tests'])
                 ->files()
                 ->name('*.suite.yml')
+                ->name('*.suite.dist.yml')
                 ->depth(0);
 
             foreach ($suiteFiles as $suiteFile) {
-                $this->codeceptionSuiteNames[] = $suiteFile->getBasename('.suite.yml');
+                $this->codeceptionSuiteNames[] = preg_replace(
+                    '/\.suite(\.dist)?$/',
+                    '',
+                    $suiteFile->getBasename('.yml')
+                );
             }
         }
 
@@ -505,7 +515,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface
     {
         $invalidSuiteNames = array_diff($suiteNames, $this->getCodeceptionSuiteNames());
         if ($invalidSuiteNames) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'The following Codeception suite names are invalid: ' . implode(', ', $invalidSuiteNames),
                 1
             );

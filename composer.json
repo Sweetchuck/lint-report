@@ -30,9 +30,9 @@
         "ext-dom": "*",
         "ext-json": "*",
         "league/container": "^2.2",
-        "symfony/console": "^3.1 || ^4.0",
-        "symfony/filesystem": "^3.1 || ^4.0",
-        "symfony/yaml": "^3.1 || ^4.0",
+        "symfony/console": "^4.0 || ^5.0",
+        "symfony/filesystem": "^4.0 || ^5.0",
+        "symfony/yaml": "^4.0 || ^5.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
@@ -40,11 +40,12 @@
         "codeception/module-asserts": "^1.1",
         "codeception/module-filesystem": "^1.0",
         "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^8.0",
         "squizlabs/php_codesniffer": "^3.4",
         "stecman/symfony-console-completion": "^0.11.0",
-        "sweetchuck/codeception-module-robo-task-runner": "^0.7",
-        "sweetchuck/git-hooks": "^0.0",
-        "sweetchuck/robo-git": "^0.2.0"
+        "sweetchuck/codeception-module-robo-task-runner": "^0.8",
+        "sweetchuck/git-hooks": "^0.1",
+        "sweetchuck/robo-git": "^0.3"
     },
     "autoload": {
         "psr-4": {
@@ -57,13 +58,6 @@
             "Sweetchuck\\LintReport\\Tests\\Unit\\": "tests/unit/"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "@git-hooks:deploy"
-        ],
-        "post-update-cmd": [
-            "@git-hooks:deploy"
-        ],
-        "git-hooks:deploy": "\\Sweetchuck\\GitHooks\\Composer\\Scripts::deploy"
-    }
+    "scripts": {},
+    "scripts-descriptions": {}
 }
