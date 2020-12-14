@@ -29,7 +29,7 @@
         "php": ">=7.2",
         "ext-dom": "*",
         "ext-json": "*",
-        "league/container": "^2.2",
+        "league/container": "^2.2 || ^3.0",
         "symfony/console": "^4.0 || ^5.0",
         "symfony/filesystem": "^4.0 || ^5.0",
         "symfony/yaml": "^4.0 || ^5.0",
@@ -44,7 +44,7 @@
         "squizlabs/php_codesniffer": "^3.4",
         "stecman/symfony-console-completion": "^0.11.0",
         "sweetchuck/codeception-module-robo-task-runner": "^0.8",
-        "sweetchuck/git-hooks": "^0.1",
+        "sweetchuck/git-hooks": "2.x-dev",
         "sweetchuck/robo-git": "^0.3"
     },
     "autoload": {
