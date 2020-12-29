@@ -231,16 +231,18 @@ class RoboFile extends Tasks implements LoggerAwareInterface
             return $this;
         }
 
-        if (is_readable('codeception.yml')) {
-            $this->codeceptionInfo = Yaml::parse(file_get_contents('codeception.yml'));
-        } else {
-            $this->codeceptionInfo = [
-                'paths' => [
-                    'tests' => 'tests',
-                    'log' => 'tests/_output',
-                ],
-            ];
-        }
+        $default = [
+            'paths' => [
+                'tests' => 'tests',
+                'log' => 'tests/_output',
+            ],
+        ];
+        $dist = Yaml::parse(file_get_contents('codeception.dist.yml'));
+        $local = file_exists('codeception.yml') ?
+            Yaml::parse(file_get_contents('codeception.yml'))
+            : [];
+
+        $this->codeceptionInfo = array_replace_recursive($default, $dist, $local);
 
         return $this;
     }
