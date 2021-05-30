@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper;
 
 use Sweetchuck\LintReport\ReportWrapperInterface;
@@ -13,7 +15,7 @@ class ReportWrapper implements ReportWrapperInterface
     /**
      * @var string[]
      */
-    protected static $severityMap = [
+    protected static array $severityMap = [
         0 => ReportWrapperInterface::SEVERITY_OK,
         1 => ReportWrapperInterface::SEVERITY_WARNING,
         2 => ReportWrapperInterface::SEVERITY_ERROR,
@@ -22,39 +24,22 @@ class ReportWrapper implements ReportWrapperInterface
     /**
      * @return string[]
      */
-    public static function severityMap()
+    public static function severityMap(): array
     {
         return static::$severityMap;
     }
 
-    /**
-     * @param int $severity
-     *
-     * @return string
-     */
-    public static function severity($severity)
+    public static function severity(int $severity): string
     {
         return static::$severityMap[$severity];
     }
 
-    /**
-     * @var array
-     */
-    protected $report = [];
+    protected array $report = [];
 
-    /**
-     * @var int|null
-     */
-    protected $numOfErrors = null;
+    protected ?int $numOfErrors = null;
 
-    /**
-     * @var int|null
-     */
-    protected $numOfWarnings = null;
+    protected ?int $numOfWarnings = null;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(array $report = null)
     {
         if ($report !== null) {
@@ -62,9 +47,6 @@ class ReportWrapper implements ReportWrapperInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getReport(): array
     {
         return $this->report;
@@ -82,9 +64,6 @@ class ReportWrapper implements ReportWrapperInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countFiles(): int
     {
         return count($this->report);
@@ -100,9 +79,6 @@ class ReportWrapper implements ReportWrapperInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function numOfErrors(): int
     {
         $this->initNumOfAny();
@@ -110,9 +86,6 @@ class ReportWrapper implements ReportWrapperInterface
         return $this->numOfErrors;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function numOfWarnings(): int
     {
         $this->initNumOfAny();
@@ -120,9 +93,6 @@ class ReportWrapper implements ReportWrapperInterface
         return $this->numOfWarnings;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function highestSeverity(): string
     {
         if ($this->numOfErrors()) {

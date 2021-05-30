@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
 use Codeception\Test\Unit;
 use org\bovigo\vfs\vfsStream;
+use Sweetchuck\LintReport\ReporterInterface;
 use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
 use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -12,30 +15,15 @@ use Symfony\Component\Yaml\Yaml;
 class BaseReporterTestBase extends Unit
 {
 
-    /**
-     * @var string
-     */
-    protected $reporterName = '';
+    protected string $reporterName = '';
 
-    /**
-     * @var string
-     */
-    protected $reporterClass = '';
+    protected string $reporterClass = '';
 
-    /**
-     * @var \Sweetchuck\LintReport\ReporterInterface
-     */
-    protected $reporter;
+    protected ReporterInterface $reporter;
 
-    /**
-     * @var string
-     */
-    protected $reporterOutputExtension = '';
+    protected string $reporterOutputExtension = '';
 
-    /**
-     * @var string
-     */
-    protected $expectedEmptyOutput = '';
+    protected string $expectedEmptyOutput = '';
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {

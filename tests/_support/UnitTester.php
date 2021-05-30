@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Test;
 
+use Codeception\Actor;
 use Sweetchuck\LintReport\Test\_generated\UnitTesterActions;
 
 /**
@@ -19,7 +22,7 @@ use Sweetchuck\LintReport\Test\_generated\UnitTesterActions;
  *
  * @SuppressWarnings(PHPMD)
 */
-class UnitTester extends \Codeception\Actor
+class UnitTester extends Actor
 {
     use UnitTesterActions;
 }

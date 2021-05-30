@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
 use Sweetchuck\LintReport\Reporter\CheckstyleReporter;
@@ -7,22 +9,17 @@ use Sweetchuck\LintReport\Reporter\CheckstyleReporter;
 class CheckstyleReporterTest extends BaseReporterTestBase
 {
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterName = 'checkstyle';
+    protected string $reporterName = 'checkstyle';
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterClass = CheckstyleReporter::class;
+    protected string $reporterClass = CheckstyleReporter::class;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterOutputExtension = 'xml';
+    protected string $reporterOutputExtension = 'xml';
 
-    protected $expectedEmptyOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<checkstyle version=\"2.6.1\"/>\n";
+    protected string $expectedEmptyOutput = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="2.6.1"/>
+
+XML;
 
     public function testSetFilePathStyle()
     {
