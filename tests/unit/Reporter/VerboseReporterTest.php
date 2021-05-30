@@ -1,33 +1,23 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
 use Sweetchuck\LintReport\Reporter\VerboseReporter;
 use Sweetchuck\LintReport\ReportWrapperInterface;
-use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
 use Symfony\Component\Console\Output\BufferedOutput;
 
+/**
+ * @property \Sweetchuck\LintReport\Reporter\VerboseReporter $reporter
+ */
 class VerboseReporterTest extends BaseReporterTestBase
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterName = 'verbose';
+    protected string $reporterName = 'verbose';
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterClass = VerboseReporter::class;
+    protected string $reporterClass = VerboseReporter::class;
 
-    /**
-     * @var \Sweetchuck\LintReport\Reporter\VerboseReporter
-     */
-    protected $reporter;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterOutputExtension = 'txt';
+    protected string $reporterOutputExtension = 'txt';
 
     public function casesGenerateColumns(): array
     {

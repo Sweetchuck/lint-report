@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Reporter;
 
 use Sweetchuck\LintReport\ReportWrapperInterface;
@@ -33,8 +35,8 @@ class CheckstyleReporter extends BaseReporter
                 $e_file->appendChild($e_error);
                 $e_error->setAttribute('severity', $failureWrapper->severity());
                 $e_error->setAttribute('source', $failureWrapper->source());
-                $e_error->setAttribute('line', $failureWrapper->line());
-                $e_error->setAttribute('column', $failureWrapper->column());
+                $e_error->setAttribute('line', (string) $failureWrapper->line());
+                $e_error->setAttribute('column', (string) $failureWrapper->column());
                 $e_error->setAttribute('message', $failureWrapper->message());
             }
         }

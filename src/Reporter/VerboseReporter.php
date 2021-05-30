@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Reporter;
 
 use Sweetchuck\LintReport\ReportWrapperInterface;
@@ -9,10 +11,7 @@ use Symfony\Component\Console\Helper\TableStyle;
 class VerboseReporter extends BaseReporter
 {
 
-    /**
-     * @var array
-     */
-    protected $columns = [
+    protected array $columns = [
         'severity' => [
             'header' => 'Severity',
             'visible' => true,

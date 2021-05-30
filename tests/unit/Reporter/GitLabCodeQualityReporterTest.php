@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 
 use Sweetchuck\LintReport\Reporter\GitLabCodeQualityReporter;
@@ -7,22 +9,13 @@ use Sweetchuck\LintReport\Reporter\GitLabCodeQualityReporter;
 class GitLabCodeQualityReporterTest extends BaseReporterTestBase
 {
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterName = 'gitlabCodeQuality';
+    protected string $reporterName = 'gitlabCodeQuality';
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterClass = GitLabCodeQualityReporter::class;
+    protected string $reporterClass = GitLabCodeQualityReporter::class;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $reporterOutputExtension = 'json';
+    protected string $reporterOutputExtension = 'json';
 
-    protected $expectedEmptyOutput = "[]\n";
+    protected string $expectedEmptyOutput = "[]\n";
 
     public function testSetFilePathStyle()
     {

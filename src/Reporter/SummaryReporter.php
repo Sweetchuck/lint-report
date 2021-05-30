@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Reporter;
 
 use Sweetchuck\LintReport\ReportWrapperInterface;

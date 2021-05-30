@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\LintReport\Reporter;
 
 use Sweetchuck\LintReport\ReporterInterface;
@@ -12,10 +14,7 @@ use Webmozart\PathUtil\Path;
 abstract class BaseReporter implements ReporterInterface
 {
 
-    /**
-     * @var array
-     */
-    public static $services = [
+    public static array $services = [
         'lintCheckstyleReporter' => CheckstyleReporter::class,
         'lintGitLabCodeQualityReporter' => GitLabCodeQualityReporter::class,
         'lintSummaryReporter' => SummaryReporter::class,
@@ -27,27 +26,12 @@ abstract class BaseReporter implements ReporterInterface
         return static::$services;
     }
 
-    /**
-     * @param \League\Container\ContainerInterface $container
-     */
-    public static function lintReportConfigureContainer($container)
-    {
-        foreach (static::getServices() as $serviceName => $serviceClass) {
-            if (!$container->has($serviceName)) {
-                $container->share($serviceName, $serviceClass);
-            }
-        }
-    }
-
-    /**
-     * @var \Sweetchuck\LintReport\ReportWrapperInterface
-     */
-    protected $reportWrapper = null;
+    protected ReportWrapperInterface $reportWrapper;
 
     /**
      * Output destination.
      *
-     * @var string|\Symfony\Component\Console\Output\OutputInterface
+     * @var string|OutputInterface
      */
     protected $destination = null;
 
@@ -56,31 +40,29 @@ abstract class BaseReporter implements ReporterInterface
      *
      * @var string
      */
-    protected $destinationMode = 'w';
+    protected string $destinationMode = 'w';
 
     /**
      * Output destination.
-     *
-     * @var \Symfony\Component\Console\Output\OutputInterface
      */
-    protected $destinationOutput = null;
+    protected ?OutputInterface $destinationOutput = null;
 
     /**
      * File handler.
      *
-     * @var resource
+     * @var null|resource
      */
     protected $destinationResource = null;
 
     /**
      * @var string
      */
-    protected $basePath = '';
+    protected string $basePath = '';
 
     /**
      * @var string|null
      */
-    protected $filePathStyle = null;
+    protected ?string $filePathStyle = null;
 
     /**
      * ReportBase constructor.
@@ -118,9 +100,6 @@ abstract class BaseReporter implements ReporterInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getReportWrapper(): ReportWrapperInterface
     {
         return $this->reportWrapper;
@@ -154,9 +133,6 @@ abstract class BaseReporter implements ReporterInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDestinationMode(): string
     {
         return $this->destinationMode;
@@ -172,9 +148,6 @@ abstract class BaseReporter implements ReporterInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBasePath(): string
     {
         return $this->basePath;
@@ -190,9 +163,6 @@ abstract class BaseReporter implements ReporterInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFilePathStyle(): ?string
     {
         return $this->filePathStyle;
@@ -311,7 +281,7 @@ abstract class BaseReporter implements ReporterInterface
             'error' => '<fg=red;options=bold>%s</fg=red;options=bold>',
         ];
 
-        $pattern = isset($patterns[$severity]) ? $patterns[$severity] : '<info>%s</info>';
+        $pattern = $patterns[$severity] ?? '<info>%s</info>';
 
         return sprintf($pattern, $text);
     }
@@ -334,7 +304,7 @@ abstract class BaseReporter implements ReporterInterface
             'error' => '<fg=red>%s</fg=red>',
         ];
 
-        $pattern = isset($patterns[$severity]) ? $patterns[$severity] : '<info>%s</info>';
+        $pattern = $patterns[$severity] ?? '<info>%s</info>';
 
         return sprintf($pattern, $text);
     }
