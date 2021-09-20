@@ -44,7 +44,7 @@ class SummaryReporter extends BaseReporter
             $table->setColumnStyle(1, $tableStyleAlignRight);
             foreach ($fileWrapper->stats()['source'] as $sourceName => $source) {
                 $table->addRow([
-                    $this->highlightNormalBySeverity($source['severity'], $sourceName),
+                    $this->highlightNormalBySeverity($source['severity'], (string) $sourceName),
                     $source['count'],
                 ]);
             }
