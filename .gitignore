@@ -1,7 +1,5 @@
 
-/bin/
-
-/tests/_output/
+/tests/_log/
 /tests/_support/_generated/
 /tests/*.suite.yml
 
@@ -9,3 +7,4 @@
 
 /.git-hooks.local
 /codeception.yml
+/robo.yml

@@ -9,7 +9,7 @@ use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Filesystem\Filesystem;
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 abstract class BaseReporter implements ReporterInterface
 {
