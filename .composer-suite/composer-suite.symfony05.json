@@ -1,0 +1,15 @@
+{
+    "description": "Use symfony/*:^5",
+    "actions": [
+        {
+            "type": "replaceRecursive",
+            "config": {
+                "parents": ["require"],
+                "items": {
+                    "symfony/console": "^5.0",
+                    "symfony/filesystem": "^5.0"
+                }
+            }
+        }
+    ]
+}

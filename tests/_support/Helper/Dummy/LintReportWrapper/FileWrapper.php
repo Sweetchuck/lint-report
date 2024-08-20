@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper;
+namespace Sweetchuck\LintReport\Tests\Helper\Dummy\LintReportWrapper;
 
 use Sweetchuck\LintReport\FileWrapperInterface;
 use Sweetchuck\LintReport\ReportWrapperInterface;

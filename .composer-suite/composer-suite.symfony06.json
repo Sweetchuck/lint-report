@@ -1,0 +1,30 @@
+{
+    "description": "Use symfony/*:^6",
+    "actions": [
+        {
+            "type": "replaceRecursive",
+            "config": {
+                "parents": ["require"],
+                "items": {
+                    "symfony/console": "^6.0",
+                    "symfony/filesystem": "^6.0"
+                }
+            }
+        },
+        {
+            "type": "replaceRecursive",
+            "config": {
+                "parents": ["require-dev"],
+                "items": {
+                    "codeception/codeception": "^5.0",
+                    "codeception/module-asserts": "^2.0",
+                    "codeception/module-filesystem": "^3.0",
+                    "consolidation/robo": "^4.0",
+                    "nuvoleweb/robo-config": "^3.0",
+                    "sweetchuck/codeception-module-robo-task-runner": "3.x-dev",
+                    "sweetchuck/robo-git": "3.x-dev"
+                }
+            }
+        }
+    ]
+}

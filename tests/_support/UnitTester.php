@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Sweetchuck\LintReport\Test;
+namespace Sweetchuck\LintReport\Tests;
 
 use Codeception\Actor;
-use Sweetchuck\LintReport\Test\_generated\UnitTesterActions;
+use Sweetchuck\LintReport\Tests\_generated\UnitTesterActions;
 
 /**
  * Inherited Methods

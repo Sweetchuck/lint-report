@@ -7,12 +7,12 @@ namespace Sweetchuck\LintReport\Tests\Unit\Reporter;
 use Codeception\Test\Unit;
 use org\bovigo\vfs\vfsStream;
 use Sweetchuck\LintReport\ReporterInterface;
-use Sweetchuck\LintReport\Test\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
+use Sweetchuck\LintReport\Tests\Helper\Dummy\LintReportWrapper\ReportWrapper as DummyReportWrapper;
 use Sweetchuck\LintReport\ReportWrapperInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Yaml\Yaml;
 
-class BaseReporterTestBase extends Unit
+abstract class BaseReporterTestBase extends Unit
 {
 
     protected string $reporterName = '';

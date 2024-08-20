@@ -1,0 +1,42 @@
+{
+    "description": "Use symfony/*:^7",
+    "actions": [
+        {
+            "type": "replaceRecursive",
+            "config": {
+                "parents": ["require"],
+                "items": {
+                    "symfony/console": "^7.0",
+                    "symfony/filesystem": "^7.0"
+                }
+            }
+        },
+        {
+            "type": "prepend",
+            "config": {
+                "parents": ["repositories"],
+                "items": {
+                    "nuvoleweb/robo-config": {
+                        "type": "github",
+                        "url": "https://github.com/Sweetchuck/robo-config.git"
+                    }
+                }
+            }
+        },
+        {
+            "type": "replaceRecursive",
+            "config": {
+                "parents": ["require-dev"],
+                "items": {
+                    "codeception/codeception": "^5.0",
+                    "codeception/module-asserts": "^2.0",
+                    "codeception/module-filesystem": "^3.0",
+                    "consolidation/robo": "^5.0",
+                    "nuvoleweb/robo-config": "4.x-dev",
+                    "sweetchuck/codeception-module-robo-task-runner": "4.x-dev",
+                    "sweetchuck/robo-git": "4.x-dev"
+                }
+            }
+        }
+    ]
+}

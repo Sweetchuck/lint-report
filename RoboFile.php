@@ -208,7 +208,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface, ConfigAwareInterfa
         $default = [
             'paths' => [
                 'tests' => 'tests',
-                'output' => 'tests/_log',
+                'output' => 'tests/_output',
             ],
         ];
         $dist = [];
@@ -455,9 +455,9 @@ class RoboFile extends Tasks implements LoggerAwareInterface, ConfigAwareInterfa
     {
         $this->initCodeceptionInfo();
 
-        return !empty($this->codeceptionInfo['paths']['log']) ?
-            $this->codeceptionInfo['paths']['log']
-            : 'tests/_log';
+        return !empty($this->codeceptionInfo['paths']['output'])
+            ? $this->codeceptionInfo['paths']['output']
+            : 'tests/_output';
     }
 
     protected function getCodeceptionSuiteNames(): array

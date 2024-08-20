@@ -128,11 +128,11 @@ commands:
             -
                 codecov/upload:
                     flags: 'unit'
-                    file: './tests/_log/machine/coverage/unit/coverage.xml'
+                    file: './tests/_output/machine/coverage/unit/coverage.xml'
             -
                 store_test_results:
                     name: 'Store unit test results'
-                    path: './tests/_log/machine/junit'
+                    path: './tests/_output/machine/junit'
 
 jobs:
     build:
