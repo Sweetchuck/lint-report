@@ -40,7 +40,7 @@ class ReportWrapper implements ReportWrapperInterface
 
     protected ?int $numOfWarnings = null;
 
-    public function __construct(array $report = null)
+    public function __construct(?array $report = null)
     {
         if ($report !== null) {
             $this->setReport($report);
