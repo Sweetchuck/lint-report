@@ -6,6 +6,7 @@
             "config": {
                 "parents": ["require"],
                 "items": {
+                    "php": ">=7.4",
                     "symfony/console": "^5.0",
                     "symfony/filesystem": "^5.0"
                 }
