@@ -25,12 +25,16 @@ abstract class BaseReporterTestBase extends Unit
 
     protected string $expectedEmptyOutput = '';
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    /**
+     * {@inheritdoc}
+     */
+    protected function _before()
     {
-        parent::__construct($name, $data, $dataName);
+        parent::_before();
 
         $this->reporter = new $this->reporterClass();
     }
+
 
     public function casesGenerate(): array
     {

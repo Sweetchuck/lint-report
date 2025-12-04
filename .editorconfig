@@ -1,4 +1,3 @@
-
 root = true
 
 [*]
@@ -11,3 +10,7 @@ insert_final_newline = true
 
 [*.xml]
 indent_size = 2
+
+[*.{sh,bash,dash,zsh}]
+indent_style = tab
+
