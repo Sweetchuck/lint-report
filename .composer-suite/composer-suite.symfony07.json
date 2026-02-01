@@ -13,18 +13,6 @@
             }
         },
         {
-            "type": "prepend",
-            "config": {
-                "parents": ["repositories"],
-                "items": {
-                    "nuvoleweb/robo-config": {
-                        "type": "github",
-                        "url": "https://github.com/Sweetchuck/robo-config.git"
-                    }
-                }
-            }
-        },
-        {
             "type": "replaceRecursive",
             "config": {
                 "parents": ["require-dev"],
@@ -33,7 +21,7 @@
                     "codeception/module-asserts": "^2.0",
                     "codeception/module-filesystem": "^3.0",
                     "consolidation/robo": "^5.0",
-                    "nuvoleweb/robo-config": "4.x-dev",
+                    "nuvoleweb/robo-config": "^3.0",
                     "sweetchuck/codeception-module-robo-task-runner": "4.x-dev",
                     "sweetchuck/robo-git": "4.x-dev"
                 }
