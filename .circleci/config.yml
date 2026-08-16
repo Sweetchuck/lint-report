@@ -1,8 +1,4 @@
-
 version: 2.1
-
-orbs:
-    codecov: 'codecov/codecov@3.0.0'
 
 .env_app: &env_app
     SHELL: '/bin/bash'
@@ -135,10 +131,6 @@ commands:
                     name: 'Codeception - unit'
                     command: |
                         "./$(composer config bin-dir)/robo" --ansi test unit
-            -
-                codecov/upload:
-                    flags: 'unit'
-                    file: './tests/_output/machine/coverage/unit/coverage.xml'
             -
                 store_test_results:
                     name: 'Store unit test results'
