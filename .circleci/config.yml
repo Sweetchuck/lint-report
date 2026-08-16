@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-    codecov: 'codecov/codecov@3.0.0'
+    codecov: 'codecov/codecov@6'
 
 .env_app: &env_app
     SHELL: '/bin/bash'
@@ -138,7 +138,8 @@ commands:
             -
                 codecov/upload:
                     flags: 'unit'
-                    file: './tests/_output/machine/coverage/unit/coverage.xml'
+                    disable_search: true
+                    files: './tests/_output/machine/coverage/unit/coverage.xml'
             -
                 store_test_results:
                     name: 'Store unit test results'
